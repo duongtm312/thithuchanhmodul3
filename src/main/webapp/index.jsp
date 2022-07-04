@@ -12,6 +12,11 @@
     <title>Title</title>
 </head>
 <body>
+<form action=/student?action=search method="post">
+    <input type="text" name="searchName"> <button type="submit">Search</button>
+
+</form>
+<br>
 <button type="button"><a href="/student?action=create">Create</a></button>
 <table>
     <thead>

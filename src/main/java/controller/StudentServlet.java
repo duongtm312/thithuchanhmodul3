@@ -25,10 +25,10 @@ public class StudentServlet extends HttpServlet {
         switch (action) {
             case "delete":
                 int id = Integer.parseInt(req.getParameter("id"));
-                studentDao.delete(id);
-                req.setAttribute("students", studentDao.getAll());
-                RequestDispatcher dispatcher4 = req.getRequestDispatcher("/index.jsp");
-                dispatcher4.forward(req, resp);
+                Student student = findById(id);
+                req.setAttribute("student", student);
+                RequestDispatcher dispatcherd = req.getRequestDispatcher("/delete.jsp");
+                dispatcherd.forward(req, resp);
                 break;
             case "create":
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/create.jsp");
@@ -37,9 +37,13 @@ public class StudentServlet extends HttpServlet {
                 showEditForm(req,resp);
                 break;
             default:
-                req.setAttribute("students", studentDao.getAll());
-                RequestDispatcher dispatcher3 = req.getRequestDispatcher("/index.jsp");
-                dispatcher3.forward(req, resp);
+                    req.setAttribute("students", studentDao.getAll());
+                    RequestDispatcher dispatcher3 = req.getRequestDispatcher("/index.jsp");
+                    dispatcher3.forward(req, resp);
+
+
+
+
         }
 
     }
@@ -83,7 +87,27 @@ public class StudentServlet extends HttpServlet {
             case "edit":
                editCustomer(req,resp);
                break;
+            case "search":
+                String searchName = req.getParameter("searchName");
+                if (searchName==null){
+                    req.setAttribute("students", studentDao.getAll());
+                    RequestDispatcher dispatcher3 = req.getRequestDispatcher("/index.jsp");
+                    dispatcher3.forward(req, resp);
+                }else {
+                    req.setAttribute("students", studentDao.getSearch(searchName));
+                    RequestDispatcher dispatchers = req.getRequestDispatcher("/index.jsp");
+                    dispatchers.forward(req, resp);
+                }
+                break;
+            case "delete":
+                int id = Integer.parseInt(req.getParameter("id"));
+                studentDao.delete(id);
+                req.setAttribute("students", studentDao.getAll());
+                RequestDispatcher dispatcher4 = req.getRequestDispatcher("/index.jsp");
+                dispatcher4.forward(req, resp);
         }
+
+
     }
     private void editCustomer(HttpServletRequest request, HttpServletResponse response) {
         try {
