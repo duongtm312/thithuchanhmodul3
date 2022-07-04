@@ -26,13 +26,15 @@ public class StudentServlet extends HttpServlet {
             case "delete":
                 int id = Integer.parseInt(req.getParameter("id"));
                 studentDao.delete(id);
+                req.setAttribute("students", studentDao.getAll());
+                RequestDispatcher dispatcher4 = req.getRequestDispatcher("/index.jsp");
+                dispatcher4.forward(req, resp);
                 break;
             case "create":
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/create.jsp");
                 dispatcher.forward(req, resp);
             case "edit":
-                RequestDispatcher dispatcher2 = req.getRequestDispatcher("/edit.jsp");
-                dispatcher2.forward(req, resp);
+                showEditForm(req,resp);
                 break;
             default:
                 req.setAttribute("students", studentDao.getAll());

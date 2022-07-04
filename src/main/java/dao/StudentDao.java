@@ -43,8 +43,8 @@ public class StudentDao {
             preparedStatement.setString(5, student.getPhone());
             preparedStatement.setString(6, student.getEmail());
             preparedStatement.setInt(7, idClass);
-
-            return preparedStatement.execute();
+            preparedStatement.execute();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
@@ -55,7 +55,8 @@ public class StudentDao {
         String sql ="DELETE FROM `student_codegym`.`students` WHERE (`StudentID` =" + id+")";
         try (Connection connection = Connect_MySQL.getConnect()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            return preparedStatement.execute();
+            preparedStatement.execute();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
@@ -72,8 +73,8 @@ public class StudentDao {
             preparedStatement.setString(4, student.getPhone());
             preparedStatement.setString(5, student.getEmail());
             preparedStatement.setInt(6, idClass);
-
-            return preparedStatement.execute();
+            preparedStatement.execute();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
